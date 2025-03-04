@@ -2,12 +2,12 @@ const board__input = document.querySelector(`.board__input`);
 const startButton = document.querySelector(`.board__button`);
 const gameBoard = document.querySelector(`#gameBoard`);
 const table = document.querySelector(`.table`);
-const couple = [
-  first: "null",
+const couple = {
+  first: null,
   firstClickable: true,
-  second: "null",
+  second: null,
   secondClickable: true,
-]
+}
 
 let totalTime = 60;
 let totalFlips;
@@ -36,12 +36,11 @@ function createBoard(count, columns) {
     const template = document.querySelector(`#gameTableTemplate`).cloneNode(true).content;
     const gameTable = template.querySelector('.table');
     const table__button = template.querySelector(`.table__button`);
-    console.log(table__button)
     gameTable.style = `
     grid-template-columns: repeat(${columns}, 1fr);
     grid-template-rows: repeat(${columns}, 1fr);
     `;
-    console.log(gameTable)
+    
     gameBoard.appendChild(gameTable);
     for (let i = 0; i < count; i++) {
       gameTable.append(createCard());
@@ -61,10 +60,9 @@ function createCard(flippedIcon) {
     const cardTemplate = document.querySelector(`#cardTemplate`).cloneNode(true).content;
     const card = cardTemplate.querySelector(`.card`);
     card.querySelector("#flippedIcon").classList.add(`fa-${flippedIcon}`)
+    card.addEventListener(`click`, () => {gameLogic(card)})
     return card
-    let flippedIcon = document.querySelector(`#flippedIcon`);
-    flippedIcon.classList.add(`fa-${flippedIcon}`)
-    card.addEventListener(`click`, gameLogic)
+
 }
 function createIconsArray (initialCount) {
     const cardsIcons = [
@@ -143,6 +141,7 @@ function gameLogic(card) {
   if (couple.first === null || couple.second === null) return;
 
   // Сравниваем классы двух карточек и сохраняем логический результат в переменную (это для повышения читабельности)
+  console.log(2, couple.first.firstElementChild.classList, couple.second.firstElementChild.classList)
   const isEqual = couple.first.firstElementChild.classList[2] === couple.second.firstElementChild.classList[2];
 
   // Если классы одинаковы
@@ -182,7 +181,7 @@ function isWin() {
       alert("Вы победили!");
       if (totalTime === 0) {
         board__input.classList.add(`disabled`);
-        break
+        
       }  
     }, 1000)
   }
@@ -197,7 +196,7 @@ function startTimer() {
     state__moves.value = totalFlips
     if (totalTime === 0) {
       board__input.classList.add(`disabled`);
-      break
+      clearInterval(intervalId)
     }
 
   }, 1000)
