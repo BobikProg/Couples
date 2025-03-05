@@ -40,11 +40,11 @@ function createBoard(count, columns) {
     grid-template-columns: repeat(${columns}, 1fr);
     grid-template-rows: repeat(${columns}, 1fr);
     `;
-    
+    let icons = createIconsArray(count)
     gameBoard.appendChild(gameTable);
-    for (let i = 0; i < count; i++) {
-      gameTable.append(createCard());
-  }
+    icons.forEach((icon) => {
+      gameTable.append(createCard(icon));
+    })
     table__button.addEventListener("click", () => {
       console.log(count, columns)
 
@@ -52,7 +52,6 @@ function createBoard(count, columns) {
       const icons = shuffleArray(array);
   })
   gameBoard.append(table__button);
-  gameTable.append(createCard);
 }
     
 function createCard(flippedIcon) {
@@ -87,15 +86,16 @@ function createIconsArray (initialCount) {
       "pen-clip"
     ];
     let cards = cardsIcons.slice(0, Math.floor(initialCount / 2));
-    let duobleCards = dublicateElements(cardsIcons);
-    shuffleArray(currentIndex);
+    let duobleCards = dublicateElements(cards)
+    return shuffleArray(duobleCards);
+    
 };
 function dublicateElements(array) {
   let Masive = [];
   array.forEach((item) => {
     Masive.push(item, item);
   });
-  item.slice();
+  return Masive
 }
 function shuffleArray(array) {
     // Определяем количество элементов массива
@@ -191,14 +191,14 @@ function startTimer() {
   const state__time = document.querySelector(`.state__time`); //показывает количество оставшихся секунд
   intervalId = setInterval(() => {
     totalTime = totalTime - 1 
-    state__time.value = totalTime
 
+    state__time.value = totalTime
     state__moves.value = totalFlips
+
     if (totalTime === 0) {
       board__input.classList.add(`disabled`);
       clearInterval(intervalId)
     }
-
   }, 1000)
 
 
