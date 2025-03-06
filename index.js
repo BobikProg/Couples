@@ -160,11 +160,7 @@ function gameLogic(card) {
       couple.first.classList.remove('flip');
       couple.second.classList.remove('flip');
 
-      if (card.classList = (`flip`)) {
-        const state__moves = document.querySelector(`.state__moves`); //показывает количество ходов
-        totalFlips = totalFlips + 1
-        state__moves.textContent = `Шаги: ${totalFlips}`
-      }
+     
 
       // Сбрасываем все ссылки и состояния
       isWin();
@@ -181,8 +177,10 @@ function gameLogic(card) {
   }
 }
 function isWin() {
+  
   const gameTable = document.querySelector('.table');
   if (Array.from(gameTable.children).every((card) => card.classList.contains('flip'))) {
+    console.log("isWin",)
     setTimeout(() => {
       alert("Вы победили!");
       if (totalTime === 0) {
@@ -199,6 +197,7 @@ function startTimer() {
 
   intervalId = setInterval(() => {
     totalTime = totalTime - 1 
+    state__moves.textContent = `Шаги: ${totalFlips}`
     state__time.textContent = `Время: ${totalTime}` 
 
     if (totalTime === 0) {
