@@ -10,7 +10,7 @@ const couple = {
 }
 
 let totalTime = 60;
-let totalFlips;
+let totalFlips = 0;
 let intervalId;
 
 
@@ -120,12 +120,13 @@ function shuffleArray(array) {
     return array;
 }
 function gameLogic(card) {
+  totalFlips = totalFlips + 1;
   // Если обе карточки не кликабельны, ничего не делаем
   if (!couple.firstClickable && !couple.secondClickable) return;
 
   // Переворачиваем карточку
   card.classList.add('flip');
-  totalFlips = totalFlips + 1;
+ 
   // Проверяем, кликнута ли первая карточка
   if (couple.first === null) {
     // Если нет, то сохраняем на нее ссылку и считаем кликнутой
@@ -141,7 +142,6 @@ function gameLogic(card) {
   if (couple.first === null || couple.second === null) return;
 
   // Сравниваем классы двух карточек и сохраняем логический результат в переменную (это для повышения читабельности)
-  console.log(2, couple.first.firstElementChild.classList, couple.second.firstElementChild.classList)
   const isEqual = couple.first.firstElementChild.classList[2] === couple.second.firstElementChild.classList[2];
 
   // Если классы одинаковы
@@ -159,6 +159,12 @@ function gameLogic(card) {
       // Иначе переворачиваем карточки обратно с задержкой в 1 секунду
       couple.first.classList.remove('flip');
       couple.second.classList.remove('flip');
+
+      if (card.classList = (`flip`)) {
+        const state__moves = document.querySelector(`.state__moves`); //показывает количество ходов
+        totalFlips = totalFlips + 1
+        state__moves.textContent = `Шаги: ${totalFlips}`
+      }
 
       // Сбрасываем все ссылки и состояния
       isWin();
@@ -189,11 +195,11 @@ function isWin() {
 function startTimer() {
   const state__moves = document.querySelector(`.state__moves`); //показывает количество ходов
   const state__time = document.querySelector(`.state__time`); //показывает количество оставшихся секунд
+  const card = document.querySelector(`.card`)
+
   intervalId = setInterval(() => {
     totalTime = totalTime - 1 
-
-    state__time.value = totalTime
-    state__moves.value = totalFlips
+    state__time.textContent = `Время: ${totalTime}` 
 
     if (totalTime === 0) {
       board__input.classList.add(`disabled`);

@@ -122,7 +122,6 @@ body {
   transition: .3s;
   font-size: 30px;
   cursor: pointer;
-  pointer-events: none;
 }
 
 .card:hover {
@@ -149,10 +148,12 @@ body {
 
 .card.flip .flipped-icon {
   display: block;
+  pointer-events: none;
 }
 
 .card.flip .default-icon {
   display: none;
+  pointer-events: none;
 }
 
 .card.successfully {
