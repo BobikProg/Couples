@@ -1,4 +1,4 @@
-import {gameLogic} from "./gameLogic"
+import {gameLogic} from "./gameLogic.js"
 export function createCard(flippedIcon) {
     
     const cardTemplate = document.querySelector(`#cardTemplate`).cloneNode(true).content;
@@ -35,3 +35,32 @@ export function createIconsArray (initialCount) {
     return shuffleArray(duobleCards);
     
 };
+function dublicateElements(array) {
+  let Masive = [];
+  array.forEach((item) => {
+    Masive.push(item, item);
+  });
+  return Masive
+}
+function shuffleArray(array) {
+  // Определяем количество элементов массива
+  let currentIndex = array.length;
+
+  // Повторяем до тех пор, пока текущий индекс не достиг нуля
+  while (currentIndex > 0) {
+    // Отнимаем индекс
+    currentIndex--;
+    // Генерируем рандомный индекс
+    const randomIndex = Math.floor(Math.random() * currentIndex);
+
+    // Сохраняем элемент текущего индекса
+    const temp = array[currentIndex];
+    // По текущему индексу размещаем элемент по случайному индексу
+    array[currentIndex] = array[randomIndex];
+    // А на место элемента по случайному индексу ставим сохраненный элемент бывшего текущего индекса
+    array[randomIndex] = temp;
+  };
+
+  // Возвращаем измененный массив
+  return array;
+}

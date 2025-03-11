@@ -1,4 +1,7 @@
-import { createBoard } from "./scripts/createBoard";
+import { createBoard } from "./scripts/createBoard.js";
+
+const startButton = document.querySelector(`.board__button`);
+const board__input = document.querySelector(`.board__input`);
 
 startButton.addEventListener("click", (event) => {
     event.preventDefault()
@@ -14,5 +17,4 @@ startButton.addEventListener("click", (event) => {
     }
   
     createBoard(count, columns);
-    startTimer();
   });

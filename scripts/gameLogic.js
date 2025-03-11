@@ -1,10 +1,15 @@
-import { startTimer, totalTime } from "./timer";
+import { startTimer, totalTime } from "./timer.js";
+import { generateConfetti, startConfetti } from "./confetti.js";
+
+let gameOver = false;
 const couple = {
     first: null,
     firstClickable: true,
     second: null,
     secondClickable: true,
   }
+const generateConfettii = generateConfetti();
+
 export let totalFlips = 0;
 export function gameLogic(card) {
     if (gameOver) return 
@@ -51,6 +56,7 @@ export function gameLogic(card) {
          
     
           // Сбрасываем все ссылки и состояния
+          generateConfettii
           isWin();
           refresh();
         }, 1000);
@@ -67,17 +73,18 @@ export function gameLogic(card) {
       }
       isWin()
 }
+
 function isWin() {
   
     const gameTable = document.querySelector('.table');
     
-      console.log(Array.from(gameTable.children))
+      // console.log(Array.from(gameTable.children))
     if (Array.from(gameTable.children).every((card) => card.classList.contains('flip'))) {
       console.log("isWin",)
       setTimeout(() => {
         gameOver = true
         alert("Вы победили!");
-  
+        startConfetti()
         if (totalTime === 0) {
           board__input.classList.add(`disabled`);
   
@@ -89,32 +96,4 @@ function isWin() {
     // }
     
   }
-  function dublicateElements(array) {
-    let Masive = [];
-    array.forEach((item) => {
-      Masive.push(item, item);
-    });
-    return Masive
-  }
-  function shuffleArray(array) {
-    // Определяем количество элементов массива
-    let currentIndex = array.length;
-
-    // Повторяем до тех пор, пока текущий индекс не достиг нуля
-    while (currentIndex > 0) {
-      // Отнимаем индекс
-      currentIndex--;
-      // Генерируем рандомный индекс
-      const randomIndex = Math.floor(Math.random() * currentIndex);
   
-      // Сохраняем элемент текущего индекса
-      const temp = array[currentIndex];
-      // По текущему индексу размещаем элемент по случайному индексу
-      array[currentIndex] = array[randomIndex];
-      // А на место элемента по случайному индексу ставим сохраненный элемент бывшего текущего индекса
-      array[randomIndex] = temp;
-    };
-  
-    // Возвращаем измененный массив
-    return array;
-}

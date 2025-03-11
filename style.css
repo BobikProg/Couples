@@ -1,3 +1,9 @@
+@keyframes moveDown {
+  100% {
+    top: 110%;
+    transform: rotate(360deg);
+  }
+}
 * {
     padding: 0;
     margin: 0;
@@ -159,4 +165,12 @@ body {
 .card.successfully {
   background: #1dd032;
   transform: scale(0.95);
-} 
+}
+.confetti {
+  position: absolute;
+  width: 80%;
+  height: 100vh;
+  z-index: 1;
+  top: 0;
+  left: 10%;
+}

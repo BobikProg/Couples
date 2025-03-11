@@ -1,7 +1,7 @@
 import {startTimer} from "./timer.js";
 import {createIconsArray, createCard} from "./cards.js"
-const board__input = document.querySelector(`.board__input`);
-const startButton = document.querySelector(`.board__button`);
+
+
 const gameBoard = document.querySelector(`#gameBoard`);
 const table = document.querySelector(`.table`);
 
@@ -27,4 +27,5 @@ export function createBoard(count, columns) {
       const icons = shuffleArray(array);
   })
   gameBoard.append(table__button);
+  startTimer()
 }
